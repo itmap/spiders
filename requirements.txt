@@ -1,0 +1,7 @@
+Scrapy==1.1.0
+scrapyd==1.1.0
+scrapyd-client==1.0.1
+Twisted==16.4.1
+git+https://github.com/songcser/geopy.git@master
+jieba==0.38
+scrapy-redis==0.6.8

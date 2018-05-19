@@ -1,0 +1,14 @@
+*~
+*.pyc
+*.pyo
+*.db
+*.log
+*.swp
+logs/
+eggs/
+dbs/
+build/
+.idea/
+*.tmp
+*.egg-info/
+*.pid
