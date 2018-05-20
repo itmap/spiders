@@ -4,7 +4,7 @@
 import random
 import logging
 from datetime import datetime, timedelta
-from itspider.utils import get_ip_proxy
+# from itspider.utils import get_ip_proxy
 
 logger = logging.getLogger("root")
 
@@ -17,7 +17,7 @@ class ProxyMiddleware(object):
     def get_proxy(self):
         now = datetime.now()
         if not self.ips or not self.now or (now-self.now).total_seconds() > 20:
-            self.ips = get_ip_proxy()
+            self.ips = ''
             self.now = now
         ip = random.choice(self.ips)
         logger.info('Use ip proxy: %s:%s' % (ip[0], ip[1]))
@@ -48,4 +48,4 @@ class ProxyMiddleware(object):
                 request.meta['retry'] = retry + 1
                 return request
             else:
-                log.info('Failed proxy <%s>, %d proxies left' % (proxy, len(self.ips)))
+                logger.info('Failed proxy <%s>, %d proxies left' % (proxy, len(self.ips)))

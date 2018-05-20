@@ -28,7 +28,7 @@ RUN apt-get install -y \
 
 WORKDIR /itspider
 ADD requirements.txt /itspider/requirements.txt
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 RUN pip install -i 'http://pypi.douban.com/simple' --trusted-host pypi.douban.com -r requirements.txt
 
 ADD deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf

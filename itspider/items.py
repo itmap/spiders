@@ -6,7 +6,7 @@ class ArticleItem(scrapy.Item):
     title = scrapy.Field()
     source = scrapy.Field()
     user = scrapy.Field()
-    bady = scrapy.Field()
+    body = scrapy.Field()
     classify = scrapy.Field()
     index = scrapy.Field()
     document_id = scrapy.Field()

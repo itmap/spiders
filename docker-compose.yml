@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  server:
+    build:
+      context: .
+    volumes:
+      - "${PWD}:/itspider"
+    ports:
+      - "0.0.0.0:6800:6800"
+    networks:
+      - scrapy-network
+
+networks:
+  scrapy-network:
+    driver: bridge

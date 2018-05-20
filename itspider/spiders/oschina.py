@@ -15,13 +15,17 @@ class OschinaSpider(scrapy.Spider):
     )
     more_url = 'https://www.oschina.net/action/ajax/get_more_recommend_blog'
 
-    def prase(self, response):
+    def __init__(self, *args, **kwargs):
+        super(OschinaSpider, self).__init__(*args, **kwargs)
+
+    def parse(self, response):
+        print("ddddd")
         navs = response.xpath('//nav[@class="box-fr blog-nav-wrapper"]/ul[@class="blog-nav"]/li/a')
         for nav in navs:
             title = nav.xpath('@title').extract_first()
             if not title:
                 continue
-            url = nav.xpath('@href')
+            url = nav.xpath('@href').extract_first()
             req = scrapy.Request(url, self.article_list)
             req.meta['classify'] = title
             req.meta['page'] = 1
@@ -38,7 +42,7 @@ class OschinaSpider(scrapy.Spider):
         if not dlist:
             return
         for l in dlist:
-            url = l.xpath('@href')
+            url = l.xpath('@href').extract_first()
             req = scrapy.Request(url, self.article_detail)
             req.meta['classify'] = classify
             yield req
