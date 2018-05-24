@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import scrapy
-import hashlib
 import urlparse
 
 from itspider.items import ArticleItem
