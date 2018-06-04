@@ -3,7 +3,7 @@
 import scrapy
 
 class JuejinSpider(scrapy.Spider):
-    
+
     name = 'juejin'
     allowed_domains = ['juejin.im']
     start_urls = (
@@ -14,4 +14,4 @@ class JuejinSpider(scrapy.Spider):
         super(JuejinSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
-        
+        pass
