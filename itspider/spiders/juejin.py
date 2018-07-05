@@ -14,4 +14,4 @@ class JuejinSpider(scrapy.Spider):
         super(JuejinSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
-        
+        pass

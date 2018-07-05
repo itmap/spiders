@@ -37,3 +37,9 @@ wiki
 
 https://docs.scrapy.org/en/latest/topics/commands.html
 ```
+
+## Curl Schedule
+
+```
+curl http://localhost:6800/schedule.json -d project=default -d spider=somespider
+```
