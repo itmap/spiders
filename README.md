@@ -12,6 +12,12 @@ docker build -t spider .
 docker run --name spider -d -p 6800:6800 spider
 ```
 
+## Deploy
+
+```
+docker exec -it spider scrapyd-deploy
+```
+
 ## Exec
 
 ```

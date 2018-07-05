@@ -19,7 +19,6 @@ class OschinaSpider(scrapy.Spider):
         super(OschinaSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
-        print("ddddd")
         navs = response.xpath('//nav[@class="box-fr blog-nav-wrapper"]/ul[@class="blog-nav"]/li/a')
         for nav in navs:
             title = nav.xpath('@title').extract_first()
@@ -59,11 +58,10 @@ class OschinaSpider(scrapy.Spider):
         item['document_type'] = self.name
         item['source'] = response.url
         item['classify'] = response.meta['classify']
-        content = response.xpath('//div[@class="blog-content"]')
-        titles = content.xpath('div[@class="blog-heading"]/div[@class="title"]/text()').extract()
-        item['title'] = ''.join(t for t in titles if ''.join(t.split()))
-        user = content.xpath('//div[@class="user-info"]/div[@class="name"]/a/text()').extract_first()
+        titles = response.xpath('//h1[@class="header"]/text()').extract()
+        item['title'] = ''.join(''.join(t.split()) for t in titles if ''.join(t.split()))
+        user = response.xpath('//div[@class="article-detail"]//div[contains(@class, "osc-avatar small-portrait")]/@title').extract_first()
         item['user'] = user
-        body = content.xpath('//div[@id="blogBody"]//text()').extract()
+        body = response.xpath('//div[@id="articleContent"]//text()').extract()
         item['body'] = '\n'.join(b for b in body if ''.join(b.split()))
         yield item
