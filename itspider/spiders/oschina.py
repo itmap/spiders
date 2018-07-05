@@ -6,6 +6,7 @@ import urlparse
 from itspider.items import ArticleItem
 from itspider.utils import md5
 
+
 class OschinaSpider(scrapy.Spider):
     name = 'oschina'
     allowed_domains = ['www.oschina.net', 'my.oschina.net']
@@ -30,7 +31,6 @@ class OschinaSpider(scrapy.Spider):
             req.meta['page'] = 1
             yield req
 
-
     def article_list(self, response):
         query = urlparse.urlparse(response.url).query
         params = urlparse.parse_qs(query)
@@ -51,7 +51,6 @@ class OschinaSpider(scrapy.Spider):
         req.meta['classify'] = classify
         req.meta['page'] = page
         yield req
-        
 
     def article_detail(self, response):
         item = ArticleItem()

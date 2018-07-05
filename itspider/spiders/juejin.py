@@ -3,7 +3,7 @@
 import scrapy
 
 class JuejinSpider(scrapy.Spider):
-    
+
     name = 'juejin'
     allowed_domains = ['juejin.im']
     start_urls = (

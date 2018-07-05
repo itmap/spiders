@@ -5,3 +5,4 @@ Twisted==16.4.1
 # git+https://github.com/songcser/geopy.git@master
 jieba==0.38
 scrapy-redis==0.6.8
+arrow==0.10.0

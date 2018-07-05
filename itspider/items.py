@@ -2,6 +2,7 @@
 
 import scrapy
 
+
 class ArticleItem(scrapy.Item):
     title = scrapy.Field()
     source = scrapy.Field()
