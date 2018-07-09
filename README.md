@@ -9,7 +9,7 @@ docker build -t spider .
 ## Run
 
 ```
-docker run --name spider -d -p 6800:6800 spider
+docker run --name spider1 -v ${PWD}/logs:/itspider/logs -d -p 6801:6800 spider
 ```
 
 ## Deploy

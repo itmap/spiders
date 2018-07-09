@@ -16,6 +16,7 @@ class JuejinSpider(CrawlSpider):
         'https://juejin.im/',
     )
     rules = (
+        Rule(LinkExtractor(allow=('tag/.*', ))),
         Rule(LinkExtractor(allow=('post/[a-z0-9]+?', )), callback='parse_item'),
     )
     download_delay = 1
