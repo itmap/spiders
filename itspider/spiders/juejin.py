@@ -18,6 +18,7 @@ class JuejinSpider(CrawlSpider):
     rules = (
         Rule(LinkExtractor(allow=('post/[a-z0-9]+?', )), callback='parse_item'),
     )
+    download_delay = 1
 
     def __init__(self, *args, **kwargs):
         super(JuejinSpider, self).__init__(*args, **kwargs)
