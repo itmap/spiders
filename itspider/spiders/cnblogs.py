@@ -16,6 +16,7 @@ class Cnblogs(CrawlSpider):
         'https://www.cnblogs.com/',
     )
     rules = (
+        Rule(LinkExtractor(allow=('cate/.*', ))),
         Rule(LinkExtractor(allow=('.*/p/.*', )), callback='parse_item'),
     )
     download_delay = 1
