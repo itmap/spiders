@@ -9,6 +9,13 @@ import traceback as tb
 import sys
 
 from pymongo import MongoClient
+from settings import (
+    host,
+    port,
+    user,
+    password,
+    MONGO_DATABASE,
+)
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -222,11 +229,11 @@ default_logging_config = {
             'level': 'INFO',
             'class': MongoHandler,
             'formatter': 'logstash',
-            'host': os.environ.get('MONGO_INITDB_HOST', 'localhost'),
-            'port': os.environ.get('MONGO_INITDB_PORT', 27017),
-            'user': os.environ.get('MONGO_INITDB_ROOT_USERNAME', 'root'),
-            'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD', 'Song123654'),
-            'db': 'data',
+            'host': host,
+            'port': port,
+            'user': user,
+            'password': password,
+            'db': MONGO_DATABASE,
         }
     },
     'loggers': {
