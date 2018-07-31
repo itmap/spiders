@@ -18,9 +18,11 @@ class CsdnSpider(CrawlSpider):
     )
     rules = (
         Rule(LinkExtractor(allow=('nav/(.*?)'))),
-        Rule(LinkExtractor(allow=('(.*?)/article/details/(.*?)',)), callback='parse_article'),
+        Rule(LinkExtractor(allow=('(.*?)/article/list/(.*?)'))),
+        Rule(LinkExtractor(allow=('(.*?)/article/details/(.*?)')), callback='parse_article'),
+        Rule(LinkExtractor(allow=('(.*?)'))),
     )
-    download_delay = 1
+    download_delay = 0.1
 
     def parse_article(self, response):
         item = ArticleItem()

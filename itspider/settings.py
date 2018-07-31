@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 #import logging.config
 #from .logger import default_logging_config
 # Scrapy settings for itspider project
@@ -77,6 +78,7 @@ DOWNLOADER_CLIENTCONTEXTFACTORY='itspider.pipelines.CustomClientContextFactory'
 ITEM_PIPELINES = {
     # 'scrapy_redis.pipelines.RedisPipeline': 200,
     'itspider.pipelines.ItspiderPipeline': 300,
+    'itspider.pipelines.MongoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -112,3 +114,12 @@ IP_PROXY_URL = 'http://192.168.2.20:8050'
 
 #  DUPEFILTER_CLASS = 'scrapyjs.SplashAwareDupeFilter'
 #  SPLASH_URL = 'http://192.168.2.20:8030/'
+
+host = os.environ.get('MONGO_INITDB_HOST', 'localhost')
+port = os.environ.get('MONGO_INITDB_PORT', 27017)
+user = os.environ.get('MONGO_INITDB_ROOT_USERNAME', 'root')
+password = os.environ.get('MONGO_INITDB_ROOT_PASSWORD', 'Song123654')
+
+#MONGO_URI = 'mongodb://localhost:27017/'
+MONGO_URI = 'mongodb://{}:{}@{}:{}/'.format(user, password, host, port)
+MONGO_DATABASE = 'data'
