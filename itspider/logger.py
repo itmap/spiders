@@ -7,9 +7,11 @@ import datetime
 import json
 import traceback as tb
 import sys
+
+from pymongo import MongoClient
+
 reload(sys)
 sys.setdefaultencoding('utf8')
-
 
 log_path = os.path.join(os.path.dirname(__file__), "..")
 LOGPATH = os.environ.get("LOGPATH", log_path)
@@ -148,6 +150,20 @@ class LogstashFormatter(logging.Formatter):
         return dict(list(defaults.get('@fields', {}).items()) + list(fields.items()))
 
 
+class MongoHandler(logging.Handler):
+    
+    def __init__(self, host, port, db, user, password):
+        client = MongoClient(host, port, username=user, password=password)
+        self.db = client[db]
+
+    def emit(self, record):
+        data = self.format(record)
+        index = 'index' in data and data['index'] or 'default'
+        collection = self.db[index]
+        doc_id = data['document_id']
+        collection.update({'document_id': doc_id}, data, upsert=True)
+
+
 default_logging_config = {
     'version': 1,
     'formatters': {
@@ -202,6 +218,16 @@ default_logging_config = {
             'maxBytes': 1024000000,
             'backupCount': 10,
         },
+        'mongo': {
+            'level': 'INFO',
+            'class': MongoHandler,
+            'formatter': 'logstash',
+            'host': os.environ.get('MONGO_INITDB_HOST', 'localhost'),
+            'port': os.environ.get('MONGO_INITDB_PORT', 27017),
+            'user': os.environ.get('MONGO_INITDB_ROOT_USERNAME', 'root'),
+            'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD', 'Song123654'),
+            'db': 'data',
+        }
     },
     'loggers': {
         'root': {
@@ -210,7 +236,7 @@ default_logging_config = {
             'level': 'DEBUG',
         },
         'itmap': {
-            'handlers': ['logstash', 'console'],
+            'handlers': ['logstash', 'console', 'mongo'],
             'propagate': False,
             'level': 'DEBUG'
         },
