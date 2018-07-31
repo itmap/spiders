@@ -101,8 +101,8 @@ class LogstashFormatter(logging.Formatter):
         if 'exc_text' in fields and not fields['exc_text']:
             fields.pop('exc_text')
 
-        for key, value in fields["args"].items():
-            fields[key] = value
+        #for key, value in fields["args"].items():
+        #    fields[key] = value
         del fields["args"]
         if "process" in fields: del fields["process"]
         if "module" in fields: del fields["module"]
