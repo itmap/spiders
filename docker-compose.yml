@@ -10,6 +10,10 @@ services:
       - "0.0.0.0:6800:6800"
     networks:
       - scrapy-network
+    environment:
+      MONGO_INITDB_HOST: mongo
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Song123654
 
 networks:
   scrapy-network:

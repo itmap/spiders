@@ -78,7 +78,7 @@ DOWNLOADER_CLIENTCONTEXTFACTORY='itspider.pipelines.CustomClientContextFactory'
 ITEM_PIPELINES = {
     # 'scrapy_redis.pipelines.RedisPipeline': 200,
     'itspider.pipelines.ItspiderPipeline': 300,
-    'itspider.pipelines.MongoPipeline': 300,
+    # 'itspider.pipelines.MongoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -110,8 +110,8 @@ class LogstashFormatter(logging.Formatter):
         if 'exc_text' in fields and not fields['exc_text']:
             fields.pop('exc_text')
 
-        #for key, value in fields["args"].items():
-        #    fields[key] = value
+        for key, value in fields["args"].items():
+            fields[key] = value
         del fields["args"]
         if "process" in fields: del fields["process"]
         if "module" in fields: del fields["module"]
@@ -159,12 +159,13 @@ class LogstashFormatter(logging.Formatter):
 
 class MongoHandler(logging.Handler):
     
-    def __init__(self, host, port, db, user, password):
+    def __init__(self, host, port, db, user, password, *args, **kwargs):
         client = MongoClient(host, port, username=user, password=password)
         self.db = client[db]
+        super(MongoHandler, self).__init__(*args, **kwargs)
 
     def emit(self, record):
-        data = self.format(record)
+        data = json.loads(self.format(record))
         index = 'index' in data and data['index'] or 'default'
         collection = self.db[index]
         doc_id = data['document_id']
@@ -227,7 +228,7 @@ default_logging_config = {
         },
         'mongo': {
             'level': 'INFO',
-            'class': MongoHandler,
+            '()': MongoHandler,
             'formatter': 'logstash',
             'host': host,
             'port': port,
